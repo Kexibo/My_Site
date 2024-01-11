@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>{{ game['name_en'] }}</title>
+<style>
+    iframe {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        width: 100%; /* Ширина iframe */
+        height: 100%; /* Высота iframe */
+        border: none; /* Удаление рамки у iframe */
+        scrolling: 'no';
+        sandbox: "allow-pointer-lock allow-same-origin allow-scripts allow-modals";
+        allowfullscreen: "true";
+    }
+</style>
+<div id="gamewraper"><noindex>
+<iframe src="{{ game['url'] }}" width="900" height="600" scrolling="no" allowfullscreen="true" border="0" frameborder="0" sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-modals"></iframe>
+</noindex></div>
+{% endblock %}

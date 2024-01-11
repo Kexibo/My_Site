@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<html lang="ru">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/game.css') }}">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .game-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .game-category {
+        flex: 1;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .game {
+        flex: 1;
+        margin-bottom: 60px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .game-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        border: 2px solid #4CAF50;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .game-title {
+        margin-top: 10px;
+    }
+
+    h2 {
+        color: #4CAF50;
+    }
+
+    #favorite-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    cursor: pointer;
+    }
+
+    #unfavorite-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: grey;
+    cursor: pointer;
+    }
+
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Игры</title>
+<body>
+    <div class="game-container">
+        <div class="game-category">
+            <h2>Лучшие игры</h2>
+            {% for game in games if 'best' in game.tags %}
+                <div class="game">
+                    {% if fav.count(game.id) > 0 %}
+                            <a href="{{ url_for('del_from_favorites', game_id=game.id) }}">
+                                <div id="favorite-button"></div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('add_to_favorites', game_id=game.id) }}">
+                                <div id="unfavorite-button"></div>
+                            </a>
+                        {% endif %}
+                    <a href="{{ url_for('choose_game', game=game.id) }}" class="game-link">
+                        <img src="{{ url_for('static', filename='images/games/'+game.name_en+'.png') }}" alt="no_image">
+                        <div class="game-title">{{ game.name_ru }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="game-category">
+            <h2>Гонки</h2>
+            {% for game in games if 'race' in game.tags %}
+                <div class="game">
+                        {% if fav.count(game.id) > 0 %}
+                            <a href="{{ url_for('del_from_favorites', game_id=game.id) }}">
+                                <div id="favorite-button"></div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('add_to_favorites', game_id=game.id) }}">
+                                <div id="unfavorite-button"></div>
+                            </a>
+                        {% endif %}
+                    <a href="{{ url_for('choose_game', game=game.id) }}" class="game-link">
+                        <img src="{{ url_for('static', filename='images/games/'+game.name_en+'.png') }}" alt="no_image">
+                        <div class="game-title">{{ game.name_ru }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="game-category">
+            <h2>Песочницы</h2>
+            {% for game in games if 'sandbox' in game.tags %}
+                <div class="game">
+                        {% if fav.count(game.id) > 0 %}
+                            <a href="{{ url_for('del_from_favorites', game_id=game.id) }}">
+                                <div id="favorite-button"></div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('add_to_favorites', game_id=game.id) }}">
+                                <div id="unfavorite-button"></div>
+                            </a>
+                        {% endif %}
+                    <a href="{{ url_for('choose_game', game=game.id) }}" class="game-link">
+                        <img src="{{ url_for('static', filename='images/games/'+game.name_en+'.png') }}" alt="no_image">
+                        <div class="game-title">{{ game.name_ru }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="game-category">
+            <h2>Прятки</h2>
+            {% for game in games if 'hide' in game.tags %}
+                <div class="game">
+                        {% if fav.count(game.id) > 0 %}
+                            <a href="{{ url_for('del_from_favorites', game_id=game.id) }}">
+                                <div id="favorite-button"></div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('add_to_favorites', game_id=game.id) }}">
+                                <div id="unfavorite-button"></div>
+                            </a>
+                        {% endif %}
+                    <a href="{{ url_for('choose_game', game=game.id) }}" class="game-link">
+                        <img src="{{ url_for('static', filename='images/games/'+game.name_en+'.png') }}" alt="no_image">
+                        <div class="game-title">{{ game.name_ru }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="game-category">
+            <h2>Бродилки</h2>
+            {% for game in games if 'walk' in game.tags %}
+                <div class="game">
+                        {% if fav.count(game.id) > 0 %}
+                            <a href="{{ url_for('del_from_favorites', game_id=game.id) }}">
+                                <div id="favorite-button"></div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('add_to_favorites', game_id=game.id) }}">
+                                <div id="unfavorite-button"></div>
+                            </a>
+                        {% endif %}
+                        <a href="{{ url_for('choose_game', game=game.id) }}" class="game-link">
+                        <img src="{{ url_for('static', filename='images/games/'+game.name_en+'.png') }}" alt="no_image">
+                        <div class="game-title">{{ game.name_ru }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
